@@ -1,7 +1,10 @@
+.header {
+  background-color: $primary-color;
+}
+
 .head {
   display: flex;
   justify-content: space-between;
-  background-color: $primary-color;
   text-align: center;
   height: 66px;
   width: 100%;
