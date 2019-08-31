@@ -1,4 +1,3 @@
-
 .form-wrap {
     background-color: rgb(243, 246, 246);
     box-shadow: 0px 5px 9px 1px rgba(0, 0, 0, 0.23);
@@ -25,6 +24,20 @@
 
 ::placeholder {
   color: #000;
+}
+
+.warning {
+    max-width: 280px;
+    margin: 20px auto 0;
+    text-transform: uppercase;
+    padding: 10px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    background: rgb(255, 0, 0);
+    letter-spacing: 2px;
+    color: #fff;
+    border-radius: 8px;
 }
 
 .thumbs {
@@ -91,19 +104,41 @@
 
 .films-item{ 
     border-radius: 10px;
-    height: 157px;
-    background-image:url("../../images/films-item-shadow.png"),
-                     url("../../images/poster1.jpg");
-    background-position: center bottom, center center;
-    background-repeat: no-repeat, no-repeat;                         
+    height: 157px;    
+    z-index:0;
+    background-position: center bottom;
+    background-repeat: no-repeat;                         
     background-blend-mode: overlay;   
     background-size: cover;        
     position: relative;
     cursor:pointer;
+    position: relative;
+    margin-bottom:12px;
 }
 
-.films-item:not(:last-child){ 
-   margin-bottom:12px;
+.films-item:after{
+    top:0;
+    left:0;
+    z-index:1;
+    content:'';
+    border-radius: 10px;
+    position: absolute;
+    width:100%;
+    height:100%;
+    background: -webkit-linear-gradient(bottom, #000000 0%,rgba(255, 255, 255, 0) 100%);           
+}
+
+
+
+.films-item__image{
+    width: 100%;
+    height:100%;
+    border-radius: 10px;
+    z-index:-1;
+}
+
+.films-item:last-child{ 
+   margin-bottom: 0;
 }
 
 .films-item__mark{
@@ -130,6 +165,7 @@
   position: absolute;
   bottom: 10px;
   left:12px;
+  z-index:2;
   
 }
     
@@ -143,18 +179,15 @@
         justify-content: space-between;
 
     }
-    
+
     .films-item{ 
         flex-basis: 48.39%;
         height: 182px;
+        margin-bottom:12px;
     }
-    
-    .films-item:not(:last-child){ 
-        margin-bottom:0;
-     }
 
-    .films-item:not(:nth-child(n+5)){ 
-       margin-bottom:12px;
+    .films-item:nth-last-child(-n + 2){ 
+        margin-bottom: 0;
     }
     
     .films-item__mark--disabled{
@@ -181,10 +214,6 @@
         height: 245px;
     }
     
-    .films-item:not(:nth-child(n+5)){ 
-       margin-bottom:22px;
-    }
-    
     .films-item__mark--disabled{
         display: none;
     }
@@ -196,5 +225,10 @@
         
 }
  
-  
+.disable {
+    opacity: 0;
+}
 
+.active {
+    opacity: 1;
+}
