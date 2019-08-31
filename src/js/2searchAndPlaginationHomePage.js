@@ -23,10 +23,22 @@ function fetchFilms() {
                     warning.remove();
                 }, 2000);
             } else {
-                console.log(data);
+                document.querySelector('.films-list').innerHTML = '';
+                
+                data.results.map(el => {
+                    const moviePath = el.backdrop_path;
+                    const movieTitle = `${el.title} (${el.release_date.slice(0, 4)})`;
+                    const movieId = el.id;
+                    
+                    document.querySelector('.films-list').appendChild(createCardFunc(moviePath, movieTitle, movieId));
+                });
             }
-        });
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
+
 
 function searchFilms(e) {
     e.preventDefault();
