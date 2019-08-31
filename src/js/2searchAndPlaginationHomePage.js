@@ -15,7 +15,7 @@ function fetchFilms() {
             if (!data.results.length) {
                 const warning = document.createElement('p');
                 warning.classList.add('warning');
-                warning.textContent = 'Введен не корректный запрос!!!';
+                warning.textContent = 'Enter correct query!!!';
 
                 document.querySelector('.movies-wrap').insertBefore(warning, document.querySelector('.films-list'));
 
@@ -32,7 +32,6 @@ function searchFilms(e) {
     e.preventDefault();
 
     inputValue = input .value;
-    console.log(inputValue);
     
     fetchFilms();
 
