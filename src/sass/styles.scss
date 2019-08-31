@@ -1,6 +1,10 @@
 /*
    Import partials below
 */
-@import './normalize';
+@import './normalize'; 
 @import './reset';
-@import './blocks/styles'
+@import './variables.scss';    
+@import './fonts.scss';
+@import './components.scss';
+@import './blocks/styles';
+
