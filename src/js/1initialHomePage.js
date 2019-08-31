@@ -14,7 +14,16 @@ function createCardFunc( imgPath, filmTitle, movieId){
 
     const img = document.createElement('img');
     img.classList.add("films-item__image");
-    img.src = imgPath;
+    const regEx = /null/g; 
+    
+    
+    if(regEx.test(imgPath)){
+        
+        img.src = './images/Zaglushka.jpg'
+    } else{
+        img.src = imgPath;
+    }
+   
 
     const parag = document.createElement('p');
     parag.classList.add("films-item__describe");
