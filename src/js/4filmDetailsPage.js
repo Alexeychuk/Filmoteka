@@ -9,8 +9,8 @@ const originalNameOfFilm = document.querySelector('.detail__name--value');
 const genreOfFilm = document.querySelector('.detail__genre--value'); 
 const aboutFilm = document.querySelector('.detail__description--text'); 
 
-let filmsQueueStorage = localStorage.getItem(filmsQueue);
-let filmsWatchedStorage = localStorage.getItem(filmsWatched);
+let filmsQueueStorage = localStorage.getItem('filmsQueue');
+let filmsWatchedStorage = localStorage.getItem('filmsWatched');
 
 
 const monitorButtonStatusTex = () => {
@@ -75,7 +75,7 @@ const toggleToQueue = () => {
         arrayOfWatched.push(selectFilm);
     }
 
-    localStorage.setItem(filmsWatched, arrayOfWatched)
+    localStorage.setItem('filmsWatched', arrayOfWatched)
 
     monitorButtonStatusTex();
 
