@@ -66,4 +66,18 @@ function fetchPopularMoviesList(){
         })
        }
 
+       function fetchGenres(){   
+        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=9e008f5d338cd1f22f432e50e537417d`)
+            .then(response => response.json())
+            .then(data => {
+                genres = data.genres;
+                console.log(genres);  
+                })
+            .catch(err => {
+                console.log(err);
+            })
+           }
+
+
        fetchPopularMoviesList();
+       fetchGenres();
