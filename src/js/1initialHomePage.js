@@ -39,7 +39,7 @@ function createCardFunc( imgPath, filmTitle, movieId){
     })
 
     return li;
-    
+   
 }
 
 function fetchPopularMoviesList(){
@@ -81,3 +81,4 @@ function fetchPopularMoviesList(){
 
        fetchPopularMoviesList();
        fetchGenres();
+
