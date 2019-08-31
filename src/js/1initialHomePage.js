@@ -42,3 +42,28 @@ function createCardFunc( imgPath, filmTitle, movieId){
     
 }
 
+function fetchPopularMoviesList(){
+    var fragment = document.createDocumentFragment();
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=9e008f5d338cd1f22f432e50e537417d&language=en-US&page=${pageNumber}&include_adult=false`)
+        .then(response => response.json())
+        .then(data => {
+                document.querySelector('.films-list').innerHTML = '';
+                data.results.map(el => {
+                    const moviePath = `https://image.tmdb.org/t/p/w400/${el.backdrop_path}`;
+                    const movieTitle = `${el.title} (${el.release_date.slice(0, 4)})`;
+                    const movieId = el.id;
+                    
+                   fragment.appendChild(createCardFunc(moviePath, movieTitle, movieId));
+
+                });
+                renderFilms = fragment;
+                list.innerHTML = '';
+                list.appendChild(fragment);
+            })
+        .catch(err => {
+            console.log(err);
+        })
+       }
+
+       fetchPopularMoviesList();
