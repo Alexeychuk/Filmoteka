@@ -5,7 +5,7 @@ const searchForm = document.querySelector('.search-form');
 const input = document.querySelector('.search-form__input');
 const btnPrev = document.querySelector('.thumbs__prev-btn');
 const btnNext = document.querySelector('.thumbs__next-btn');
-const pageNumber = document.querySelector('.thumbs__txt');
+const paginationTxt = document.querySelector('.thumbs__txt');
 
 
 function fetchFilms() {
@@ -25,8 +25,9 @@ function fetchFilms() {
             } else {
                 document.querySelector('.films-list').innerHTML = '';
                 
+
                 data.results.map(el => {
-                    const moviePath = el.backdrop_path;
+                    const moviePath = `https://image.tmdb.org/t/p/w400/${el.backdrop_path}`;
                     const movieTitle = `${el.title} (${el.release_date.slice(0, 4)})`;
                     const movieId = el.id;
                     
@@ -38,6 +39,7 @@ function fetchFilms() {
             console.log(err);
         })
 }
+
 
 
 function searchFilms(e) {
