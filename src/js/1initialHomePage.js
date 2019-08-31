@@ -14,7 +14,16 @@ function createCardFunc( imgPath, filmTitle, movieId){
 
     const img = document.createElement('img');
     img.classList.add("films-item__image");
-    img.src = imgPath;
+    const regEx = /null/g; 
+    
+    
+    if(regEx.test(imgPath)){
+        
+        img.src = './images/Zaglushka.jpg'
+    } else{
+        img.src = imgPath;
+    }
+   
 
     const parag = document.createElement('p');
     parag.classList.add("films-item__describe");
@@ -30,5 +39,46 @@ function createCardFunc( imgPath, filmTitle, movieId){
     })
 
     return li;
-    
+   
 }
+
+function fetchPopularMoviesList(){
+    var fragment = document.createDocumentFragment();
+
+    fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=9e008f5d338cd1f22f432e50e537417d&language=en-US&page=${pageNumber}&include_adult=false`)
+        .then(response => response.json())
+        .then(data => {
+                document.querySelector('.films-list').innerHTML = '';
+                data.results.map(el => {
+                    const moviePath = `https://image.tmdb.org/t/p/w400/${el.backdrop_path}`;
+                    const movieTitle = `${el.title} (${el.release_date.slice(0, 4)})`;
+                    const movieId = el.id;
+                    
+                   fragment.appendChild(createCardFunc(moviePath, movieTitle, movieId));
+
+                });
+                renderFilms = fragment;
+                list.innerHTML = '';
+                list.appendChild(fragment);
+            })
+        .catch(err => {
+            console.log(err);
+        })
+       }
+
+       function fetchGenres(){   
+        fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=9e008f5d338cd1f22f432e50e537417d`)
+            .then(response => response.json())
+            .then(data => {
+                genres = data.genres;
+                console.log(genres);  
+                })
+            .catch(err => {
+                console.log(err);
+            })
+           }
+
+
+       fetchPopularMoviesList();
+       fetchGenres();
+
