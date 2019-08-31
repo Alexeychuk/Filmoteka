@@ -32,4 +32,3 @@ function createCardFunc( imgPath, filmTitle, movieId){
     return li;
     
 }
-
