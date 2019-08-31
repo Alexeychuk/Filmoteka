@@ -1,15 +1,33 @@
 'use strict'
 
-const renderFilms, genres, pageNumber;
+let renderFilms, genres, pageNumber;
+
+const list = document.querySelector('.films-list');
 
 function createCardFunc( imgPath, filmTitle, movieId){
- return `<li class="films-item" ${movieId}>
-            <span class='films-item__mark films-item__mark--disabled'>6.5</span>
-            <p class="films-item__describe">
 
-          <span class="films-item__name">${filmTitle}</span>
- 
-            </span>
-            </p>
-            </li>`
+    const li = document.createElement('li');
+    li.classList.add("films-item");
+    li.id = movieId;
+
+    const img = document.createElement('img');
+    img.classList.add("films-item__image");
+    img.src = imgPath;
+
+    const parag = document.createElement('p');
+    parag.classList.add("films-item__describe");
+
+    const span = document.createElement('span');
+    span.classList.add("films-item__name");
+    span.textContent = filmTitle;
+    parag.append(span);
+     li.append(img,parag);   
+
+    li.addEventListener('click', function handleItem(){
+        console.log(this);
+    })
+
+    return li;
+    
 }
+
