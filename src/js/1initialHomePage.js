@@ -2,6 +2,8 @@
 
 let renderFilms, genres, pageNumber;
 
+pageNumber = 1;
+
 const list = document.querySelector('.films-list');
 
 function createCardFunc( imgPath, filmTitle, movieId){

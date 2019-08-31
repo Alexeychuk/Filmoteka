@@ -6,10 +6,18 @@ const input = document.querySelector('.search-form__input');
 const btnPrev = document.querySelector('.thumbs__prev-btn');
 const btnNext = document.querySelector('.thumbs__next-btn');
 const paginationTxt = document.querySelector('.thumbs__txt');
+const thumbs = document.querySelector('.thumbs');
 
+
+if (pageNumber === 1) {
+    btnPrev.classList.add('disable');
+}
+
+console.dir(paginationTxt);
+paginationTxt.innerText = pageNumber;
 
 function fetchFilms() {
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=9e008f5d338cd1f22f432e50e537417d&language=en-US&query=${inputValue}&page=1&include_adult=false`)
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=9e008f5d338cd1f22f432e50e537417d&language=en-US&query=${inputValue}&page=${pageNumber}&include_adult=false`)
         .then(response => response.json())
         .then(data => {
             if (!data.results.length) {
@@ -45,15 +53,40 @@ function fetchFilms() {
 function searchFilms(e) {
     e.preventDefault();
 
-    inputValue = input .value;
+    inputValue = input.value;
     
     fetchFilms();
 
     e.target.reset();
 }
 
-searchForm.addEventListener('submit', searchFilms);
+function plaginationNavigation(e) {
+    if (e.target.classList.contains('thumbs__prev-btn')) {
+        if (pageNumber === 1) {  
+            btnPrev.classList.add('disable');
+        }
+        
+        if (paginationTxt.innerText > 1) {
+            --paginationTxt.innerText;
+            --pageNumber;
+            console.log(pageNumber);
+            fetchFilms();
+    
+        }
+    }
 
+    if (e.target.classList.contains('thumbs__next-btn')) {
+        btnPrev.classList.add('active');
+        paginationTxt.innerText++;
+        pageNumber++;
+
+        fetchFilms();
+    }
+}
+
+
+searchForm.addEventListener('submit', searchFilms);
+thumbs.addEventListener('click', plaginationNavigation)
 
 
 
