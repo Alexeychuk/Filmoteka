@@ -51,7 +51,7 @@ const toggleToQueue = () => {
         arrayOfQueue.push(selectFilm);
     }
 
-    localStorage.setItem(filmsQueue, arrayOfQueue)
+    localStorage.setItem('filmsQueue', arrayOfQueue);
 
     monitorButtonStatusTex();
   
