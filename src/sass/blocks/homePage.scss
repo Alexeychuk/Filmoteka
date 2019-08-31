@@ -1,3 +1,4 @@
+
 .form-wrap {
     background-color: rgb(243, 246, 246);
     box-shadow: 0px 5px 9px 1px rgba(0, 0, 0, 0.23);
@@ -87,3 +88,119 @@
     }
 
 }
+
+.films-list{
+    list-style: none;
+    padding-top:14px;
+    padding-bottom:30px;      
+}
+
+.films-item{ 
+    border-radius: 10px;
+    height: 157px;
+    background-image:url("../../images/films-item-shadow.png"),
+                     url("../../images/poster1.jpg");
+    background-position: center bottom, center center;
+    background-repeat: no-repeat, no-repeat;                         
+    background-blend-mode: overlay;   
+    background-size: cover;        
+    position: relative;
+    cursor:pointer;
+}
+
+.films-item:not(:last-child){ 
+   margin-bottom:12px;
+}
+
+.films-item__mark{
+    position: absolute;
+    top:8px;
+    right: 8px;
+    border-radius: 6px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: inset 0px 0px 2.79px 0.21px rgba(0, 0, 0, 0.35),inset 0px 0px 2.64px 1.36px rgba(0, 0, 0, 0.35);
+    width: 31px;
+    height: 17px;   
+    font-size:12px;
+    line-height:17px;
+    text-align: center; 
+}
+
+.films-item__mark--disabled{
+    display: none;
+}
+
+.films-item__describe{
+  font-size: 12px;
+  color: $item-text-color;
+  position: absolute;
+  bottom: 10px;
+  left:12px;
+  
+}
+    
+
+@media (min-width:768px){
+    .films-list{    
+        padding-top:30px;
+        padding-bottom:20px;  
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+    }
+    
+    .films-item{ 
+        flex-basis: 48.39%;
+        height: 182px;
+    }
+    
+    .films-item:not(:last-child){ 
+        margin-bottom:0;
+     }
+
+    .films-item:not(:nth-child(n+5)){ 
+       margin-bottom:12px;
+    }
+    
+    .films-item__mark--disabled{
+        display: none;
+    }
+    
+    .films-item__describe{
+      font-size: 14px;
+    
+    }
+        
+}
+
+@media (min-width:1024px){
+    .films-list{    
+        padding-top:30px;
+        padding-bottom:20px;  
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .films-item{ 
+        height: 245px;
+    }
+    
+    .films-item:not(:nth-child(n+5)){ 
+       margin-bottom:22px;
+    }
+    
+    .films-item__mark--disabled{
+        display: none;
+    }
+    
+    .films-item__describe{
+      font-size: 19px;
+    
+    }
+        
+}
+ 
+  
+
