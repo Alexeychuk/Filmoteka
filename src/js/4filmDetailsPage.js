@@ -20,10 +20,11 @@ let filmsWatchedStorage = localStorage.getItem('filmsWatched');
 // localStorage.setItem('filmsWatched', '[]');
 
 function monitorButtonStatusText() {
-    if(filmsWatchedStorage){
+    console.log(filmsQueueStorage);
+    if(filmsQueueStorage){
         if (JSON.parse(filmsQueueStorage).find(obj => obj.id === selectFilm.id)) {
-        addToQueueBtn.textContent = 'Delete from queue';
-        addDeleteFromQueue.src = '/images/removeFromQueue.jpg'
+            addToQueueBtn.textContent = 'Delete from queue';
+            addDeleteFromQueue.src = '/images/removeFromQueue.jpg'
         } else {
             addToQueueBtn.textContent = 'Add to queue';
             addDeleteFromQueue.src = '/images/detailsCalendar.png'
@@ -49,19 +50,17 @@ function monitorButtonStatusText() {
 let arrayOfQueue = []; 
 
 function toggleToQueue() {
-       
-    arrayOfQueue.push(selectFilm);
-       
-    // if(selectFilm){
-    //     const objOfSelectFilm = arrayOfQueue.find(obj => obj.id === selectFilm.id);
-        
-    //     if (objOfSelectFilm) {
-    //     const index = arrayOfQueue.indexOf(objOfSelectFilm);
-    //     arrayOfQueue.splice(index, 1);
-    //     } else {
-    //         arrayOfQueue.push(selectFilm);
-    //     }
-    // }
+
+   
+    const dublicateMovie = arrayOfQueue.find(el => el.id === selectFilm.id);
+
+    if (!dublicateMovie) {
+        arrayOfQueue.push(selectFilm);
+    }
+
+    
+   
+    
     localStorage.setItem('filmsQueue', JSON.stringify(arrayOfQueue));
     monitorButtonStatusText();
   
@@ -69,28 +68,25 @@ function toggleToQueue() {
 
    let arrayOfWatched = [];
 
-  function toggleToWatched(){
+function toggleToWatched(){
 
-   arrayOfWatched.push(selectFilm);
-       
-    // if(selectFilm){
-    //     const objOfSelectFilm = arrayOfQueue.find(obj => obj.id === selectFilm.id);
-        
-    //     if (objOfSelectFilm) {
-    //     const index = arrayOfQueue.indexOf(objOfSelectFilm);
-    //     arrayOfQueue.splice(index, 1);
-    //     } else {
-    //         arrayOfQueue.push(selectFilm);
-    //     }
-    // }
+    
+    const dublicateMovie = arrayOfWatched.find(el => el.id === selectFilm.id);
+    
+    if (!dublicateMovie) {
+        arrayOfWatched.push(selectFilm);
+    }
+    
+    
+
     localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched));
     monitorButtonStatusText();
-
-  }
-
+}
 
 
-  const showDetails  = (selectFilm) => {
+
+  function showDetails(selectFilm) {
+      
     imgOfFilm.src = `https://image.tmdb.org/t/p/w500${selectFilm.poster_path}`;
 
     titleOfFilm.textContent = `${selectFilm.original_title } (${selectFilm.release_date.slice(0,4)})`;
