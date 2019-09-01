@@ -19,11 +19,11 @@ const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
     span.textContent = filmTitle;
     parag.append(span);
 
-    const span = document.createElement('span');
-    span.classList.add('films-item__mark films-item__mark--disabled');
-    span.textContent = voteAverage;
+    const mark = document.createElement('span');
+    mark.classList.add('films-item__mark');
+    mark.textContent = voteAverage;
 
-    li.append(img,span,parag);
+    li.append(img,mark,parag);
     li.addEventListener('click', activeDetailsPage);
 
     return li;
