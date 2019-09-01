@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         document.documentElement.classList.remove('preloaderHeight');
         document.querySelector('.preloader').remove();
-    }, 0);
+    }, 4000);
     
 });
 
