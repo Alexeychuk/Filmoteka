@@ -51,22 +51,32 @@ function fetchFilms() {
 
 function searchFilms(e) {
     e.preventDefault();
-
-    inputValue = input.value;
     
-    fetchFilms();
+    inputValue = input.value;
+    pageNumber = 1;
+    paginationTxt.innerText = pageNumber;
+    btnPrev.classList.remove('active');
+    btnPrev.classList.add('disable');
 
+    fetchFilms();
+    
+    
     e.target.reset();
 }
 
 function plaginationNavigation(e) {
-
     if (e.target.classList.contains('thumbs__prev-btn')) {
         if (pageNumber > 1) {
             paginationTxt.innerText--;
             pageNumber--;
 
-            fetchFilms();
+
+            if (inputValue) {
+                
+                fetchFilms();
+            }
+            else fetchPopularMoviesList();
+                
 
             if (pageNumber === 1) { 
                 btnPrev.classList.remove('active');
@@ -81,7 +91,8 @@ function plaginationNavigation(e) {
         paginationTxt.innerText++;
         pageNumber++;
 
-        fetchFilms();
+        if (inputValue) fetchFilms();
+        else fetchPopularMoviesList();
     }
 }
 
