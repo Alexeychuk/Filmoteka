@@ -68,7 +68,7 @@ function fetchPopularMoviesList(){
             .then(response => response.json())
             .then(data => {
                 genres = data.genres;
-                console.log(genres);  
+             
                 })
             .catch(err => {
                 console.log(err);
