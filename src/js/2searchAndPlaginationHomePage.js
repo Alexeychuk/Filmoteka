@@ -98,7 +98,6 @@ function scrollToTop() {
 
 
 searchForm.addEventListener('submit', searchFilms);
-thumbs.addEventListener('click', plaginationNavigation);
 topBtn.addEventListener('click', scrollToTop);
 
 window.addEventListener('scroll', function (e) {
