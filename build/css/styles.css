@@ -1007,7 +1007,7 @@ main {
   display: none;
 }
 
-.header-search__library {
+.header-search__library--inner {
   height: 74px;
   padding-top: 15px;
   padding-bottom: 15px;
