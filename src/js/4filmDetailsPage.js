@@ -16,81 +16,85 @@ const aboutFilm = document.querySelector('.detail__description--text');
 let filmsQueueStorage = localStorage.getItem('filmsQueue');
 let filmsWatchedStorage = localStorage.getItem('filmsWatched');
 
+// localStorage.setItem('filmsQueue', '[]');
+// localStorage.setItem('filmsWatched', '[]');
 
-const monitorButtonStatusTex = () => {
-
-    if (JSON.parse(filmsQueueStorage).find(obj => obj.id === selectFilm.id)) {
+function monitorButtonStatusText() {
+    if(filmsWatchedStorage){
+        if (JSON.parse(filmsQueueStorage).find(obj => obj.id === selectFilm.id)) {
         addToQueueBtn.textContent = 'Delete from queue';
         addDeleteFromQueue.src = '/images/removeFromQueue.jpg'
-    } else {
-        addToQueueBtn.textContent = 'Add to queue';
-        addDeleteFromQueue.src = '/images/detailsCalendar.png'
+        } else {
+            addToQueueBtn.textContent = 'Add to queue';
+            addDeleteFromQueue.src = '/images/detailsCalendar.png'
+        }
     }
-
     
-    if (JSON.parse(filmsWatchedStorage).find(obj => obj.id === selectFilm.id)) {
+
+    if(filmsWatchedStorage){
+         if (JSON.parse(filmsWatchedStorage).find(obj => obj.id === selectFilm.id)) {
         addToWatchedBtn.textContent = 'Delete from watched';
         addDeleteFromWatched.src = '/images/addDeleteFromWatched.jpg'
-    } else {
-        addToWatchedBtn.textContent = 'Add to watched';
-        addDeleteFromWatched.src = '/images/detailsVideo.png';
+        } else {
+            addToWatchedBtn.textContent = 'Add to watched';
+            addDeleteFromWatched.src = '/images/detailsVideo.png';
+        }
+
     }
 
+   
 }
 
 
+let arrayOfQueue = []; 
 
-
-
-const toggleToQueue = () => {
-    let arrayOfQueue = [];
-    
-  
-    if (filmsQueueStorage != null) {
-      arrayOfQueue.push(filmsQueueStorage);
-    }
-
-    const objOfSelectFilm = arrayOfQueue.find(obj => obj.id === selectFilm.id);
-    
-    if (objOfSelectFilm) {
-       const index = arrayOfQueue.indexOf(objOfSelectFilm);
-       arrayOfQueue.splice(index, 1);
-    } else {
-        arrayOfQueue.push(selectFilm);
-    }
-
+function toggleToQueue() {
+       
+    arrayOfQueue.push(selectFilm);
+       
+    // if(selectFilm){
+    //     const objOfSelectFilm = arrayOfQueue.find(obj => obj.id === selectFilm.id);
+        
+    //     if (objOfSelectFilm) {
+    //     const index = arrayOfQueue.indexOf(objOfSelectFilm);
+    //     arrayOfQueue.splice(index, 1);
+    //     } else {
+    //         arrayOfQueue.push(selectFilm);
+    //     }
+    // }
     localStorage.setItem('filmsQueue', JSON.stringify(arrayOfQueue));
-
-    monitorButtonStatusTex();
+    //monitorButtonStatusText();
   
   }
 
-  const toggleToWatched  = () => {
+  function toggleToWatched(){
 
-    let arrayOfWatched = [];
+    // let arrayOfWatched = [];
     
-  
-    if (filmsWatchedStorage != null) {
-        arrayOfWatched.push(filmsWatchedStorage);
-    }
-
-    const objOfSelectFilm = arrayOfWatched.find(obj => obj.id === selectFilm.id);
     
-    if (objOfSelectFilm) {
-       const index = arrayOfWatched.indexOf(objOfSelectFilm);
-       arrayOfWatched.splice(index, 1);
-    } else {
-        arrayOfWatched.push(selectFilm);
-    }
+    // if (filmsWatchedStorage !== null) {
+    //     arrayOfWatched.push(...JSON.parse(filmsWatchedStorage));
+    // }
 
-    localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched))
+    // const objOfSelectFilm = arrayOfWatched.find(obj => obj.id === selectFilm.id);
+    
+    // if (objOfSelectFilm) {
+    //    const index = arrayOfWatched.indexOf(objOfSelectFilm);
+    //    arrayOfWatched.splice(index, 1);
+    // } else {
+    //     arrayOfWatched.push(selectFilm);
+    // }
 
-    monitorButtonStatusTex();
+    // localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched))
+
+    // monitorButtonStatusText();
+
+
 
   }
 
 
-  const showDetails  = (selectFilm) => {
+  function showDetails(selectFilm) {
     imgOfFilm.src = selectFilm.poster_path;
     titleOfFilm.textContent = `${selectFilm.original_title } (${selectFilm.release_date.slice(0,4)})`;
     voteOfFilm.textContent = `${selectFilm.vote_average} / ${selectFilm.vote_count}`;

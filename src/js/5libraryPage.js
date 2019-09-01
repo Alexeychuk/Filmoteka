@@ -1,5 +1,5 @@
 
-const findUl = document.querySelector('films-list container');
+const findUl = document.querySelector('films-list');
 
 const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
   const li = document.createElement('li');
@@ -30,15 +30,17 @@ const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
 
 const drawQueueFilmList = () => {
   const fragment = document.createDocumentFragment();
-  const keyFilm = localStorage.getItem('filmsQueue');
-  console.log(keyFilm === null);
-  if (!keyFilm === null) {
-    keyFilm.forEach(() => {
-      const li = createLibraryCardFunc();
+  const keyFilm = localStorage.getItem('filmsQueue'); 
+  //findUl.innerHTML = '';
+  //console.log(keyFilm.length);
+  if (keyFilm !== null) {
+
+    keyFilm.forEach(el => {
+      const li = createLibraryCardFunc(`https://image.tmdb.org/t/p/w400/${el.backdrop_path}`, el.title, el.id, el.voteAverage);    
       fragment.append(li);
-      findUl.innerHTML = '';
-      findUl.append(fragment);
     });
+
+    findUl.append(fragment);
   } else {
     const createSpan = document.createElement('span');
     createSpan.textContent =
@@ -46,7 +48,7 @@ const drawQueueFilmList = () => {
       // refs.formWrap.classList.add('display-section');
       // refs.thumbs.classList.add('display-section');
       // refs.movieWrap.classList.remove('display-section')
-    list.innerHTML = '';
+   // list.innerHTML = '';
     list.append(createSpan);
   }
   // refs.queueBtn.classList.add('header-search__item--active');

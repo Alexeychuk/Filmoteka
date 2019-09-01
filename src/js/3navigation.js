@@ -19,7 +19,7 @@ const refs = {
   movieWrap: document.querySelector('.movies-wrap'),
 };
 
-let selectFilm ;
+let selectFilm;
 
 const activeHomePage = () => {
   refs.homePageNone.classList.remove('display-section');
@@ -41,7 +41,7 @@ const activeLibraryPage = () => {
 
   refs.navbarHome.classList.remove('navbar__item--active');
   refs.navbarLibrary.classList.add('navbar__item--active')
-  // drawQueueFilmList();
+  drawQueueFilmList();
 
   refs.queueBtn.classList.add('header-search__item--active');
 
@@ -64,10 +64,13 @@ function activeDetailsPage( movieId, itsLibraryFilm) {
   }
   showDetails(selectFilm);
 
-  refs.addToWatched.addEventListener('click', ()=> {
+  
 
-  })
+  
 };
+
+refs.addToQueue.addEventListener('click', toggleToQueue);
+  refs.addToWatched.addEventListener('click', toggleToWatched);
 
 //document.querySelector('main').addEventListener('click', activeDetailsPage);
 // activeDetailsPage()
