@@ -1,4 +1,4 @@
-'use strict';
+
 
 let inputValue = document.querySelector('.search-form__input').value;
 const searchForm = document.querySelector('.search-form');
@@ -24,13 +24,13 @@ function fetchFilms() {
                 warning.classList.add('warning');
                 warning.textContent = 'Enter correct query!!!';
 
-                document.querySelector('.movies-wrap').insertBefore(warning, document.querySelector('.films-list'));
+                document.querySelector('.movies-wrap').insertBefore(warning, list);
 
                 setTimeout(() => {
                     warning.remove();
                 }, 2000);
             } else {
-                document.querySelector('.films-list').innerHTML = '';
+                list.innerHTML = '';
                 
 
                 data.results.map(el => {
@@ -38,7 +38,7 @@ function fetchFilms() {
                     const movieTitle = `${el.title} (${el.release_date.slice(0, 4)})`;
                     const movieId = el.id;
                     
-                    document.querySelector('.films-list').appendChild(createCardFunc(moviePath, movieTitle, movieId));
+                    list.appendChild(createCardFunc(moviePath, movieTitle, movieId));
                 });
             }
         })
