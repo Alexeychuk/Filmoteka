@@ -1,5 +1,9 @@
+
 const addToWatchedBtn = document.querySelector('.detail__buttons--favorite');
 const addToQueueBtn = document.querySelector('.detail__buttons--queue');
+
+const addDeleteFromWatched = document.querySelector('.videoBtn');
+const addDeleteFromQueue = document.querySelector('.calendarBtn');
 
 const imgOfFilm = document.querySelector('.detail__img--item');
 const titleOfFilm = document.querySelector('.detail__description--title');
@@ -15,17 +19,21 @@ let filmsWatchedStorage = localStorage.getItem('filmsWatched');
 
 const monitorButtonStatusTex = () => {
 
-    if (filmsQueueStorage.find(obj => obj.id === selectFilm.id)) {
+    if ([JSON.parse(filmsQueueStorage.find(obj => obj.id === selectFilm.id))]) {
         addToQueueBtn.textContent = 'Delete from queue';
+        addDeleteFromQueue.src = '/images/removeFromQueue.jpg'
     } else {
         addToQueueBtn.textContent = 'Add to queue';
+        addDeleteFromQueue.src = '/images/detailsCalendar.png'
     }
 
     
-    if (filmsWatchedStorage.find(obj => obj.id === selectFilm.id)) {
+    if ([JSON.parse(filmsWatchedStorage.find(obj => obj.id === selectFilm.id))]) {
         addToWatchedBtn.textContent = 'Delete from watched';
+        addDeleteFromWatched.src = '/images/addDeleteFromWatched.jpg'
     } else {
         addToWatchedBtn.textContent = 'Add to watched';
+        addDeleteFromWatched.src = '/images/detailsVideo.png';
     }
 
 }
@@ -51,7 +59,7 @@ const toggleToQueue = () => {
         arrayOfQueue.push(selectFilm);
     }
 
-    localStorage.setItem('filmsQueue', arrayOfQueue);
+    localStorage.setItem('filmsQueue', JSON.stringify(arrayOfQueue));
 
     monitorButtonStatusTex();
   
@@ -75,7 +83,7 @@ const toggleToQueue = () => {
         arrayOfWatched.push(selectFilm);
     }
 
-    localStorage.setItem('filmsWatched', arrayOfWatched)
+    localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched))
 
     monitorButtonStatusTex();
 
@@ -84,18 +92,33 @@ const toggleToQueue = () => {
 
   const showDetails  = (selectFilm) => {
     imgOfFilm.src = selectFilm.poster_path;
-    titleOfFilm.textContent = `${selectFilm.original_title }+(${selectFilm.release_date.slice(0,4)})`;
-    voteOfFilm.textContent = `${selectFilm.average}${selectFilm.vote_count}`;
+    titleOfFilm.textContent = `${selectFilm.original_title } (${selectFilm.release_date.slice(0,4)})`;
+    voteOfFilm.textContent = `${selectFilm.vote_average} / ${selectFilm.vote_count}`;
     popularityOfFilm.textContent = selectFilm.popularity.toFixed(1);
     originalNameOfFilm.textContent = selectFilm.original_title;
-
-    const arrOfGenres = selectFilm.genres.map(obj => obj.name);
-    genreOfFilm.textContent = arrOfGenres.join(', ');
-
     aboutFilm.textContent = selectFilm.overview;
+
+
+    const idOfGenres = selectFilm.genre_ids;
+
+    let arrayOfGenres = [];
+
+    for (let i = 0; i < idOfGenres.length; i++) {
+
+    let id = idOfGenres[i];
+   
+    const result = genres.find(obj => obj.id === id)
+    arrayOfGenres.push(result);
+    }
+
+    const arrOfGenres = arrayOfGenres.map(obj => obj.name);
+    genreOfFilm.textContent = arrOfGenres.join(', ').toLowerCase();
 
     monitorButtonStatusText();
   }
+
+
+  
 
 
   
