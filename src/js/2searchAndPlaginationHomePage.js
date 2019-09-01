@@ -108,6 +108,17 @@ function scrollToTop() {
 }
 
 
+
+function fillScrollBar() {
+    document.querySelector('.progress-container').classList.remove('disable')
+    if (!document.documentElement.scrollTop) document.querySelector('.progress-container').classList.add('disable');
+    const windowScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (windowScroll / height) * 100;
+    
+    document.querySelector('.progress-bar').style.width = scrolled + '%';
+}
+
 searchForm.addEventListener('submit', searchFilms);
 thumbs.addEventListener('click', plaginationNavigation);
 topBtn.addEventListener('click', scrollToTop);
@@ -126,9 +137,11 @@ window.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         document.documentElement.classList.remove('preloaderHeight');
         document.querySelector('.preloader').remove();
-    }, 4000);
+    }, 0);
     
-})
+});
+
+window.addEventListener('scroll', fillScrollBar);
 
 
 
