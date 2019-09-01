@@ -51,22 +51,32 @@ function fetchFilms() {
 
 function searchFilms(e) {
     e.preventDefault();
-
-    inputValue = input.value;
     
-    fetchFilms();
+    inputValue = input.value;
+    pageNumber = 1;
+    paginationTxt.innerText = pageNumber;
+    btnPrev.classList.remove('active');
+    btnPrev.classList.add('disable');
 
+    fetchFilms();
+    
+    
     e.target.reset();
 }
 
 function plaginationNavigation(e) {
-
     if (e.target.classList.contains('thumbs__prev-btn')) {
         if (pageNumber > 1) {
             paginationTxt.innerText--;
             pageNumber--;
 
-            fetchFilms();
+
+            if (inputValue) {
+                
+                fetchFilms();
+            }
+            else fetchPopularMoviesList();
+                
 
             if (pageNumber === 1) { 
                 btnPrev.classList.remove('active');
@@ -81,7 +91,8 @@ function plaginationNavigation(e) {
         paginationTxt.innerText++;
         pageNumber++;
 
-        fetchFilms();
+        if (inputValue) fetchFilms();
+        else fetchPopularMoviesList();
     }
 }
 
@@ -97,6 +108,17 @@ function scrollToTop() {
 }
 
 
+
+function fillScrollBar() {
+    document.querySelector('.progress-container').classList.remove('disable')
+    if (!document.documentElement.scrollTop) document.querySelector('.progress-container').classList.add('disable');
+    const windowScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (windowScroll / height) * 100;
+    
+    document.querySelector('.progress-bar').style.width = scrolled + '%';
+}
+
 searchForm.addEventListener('submit', searchFilms);
 topBtn.addEventListener('click', scrollToTop);
 
@@ -110,6 +132,15 @@ window.addEventListener('scroll', function (e) {
     }
 });
 
+window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        document.documentElement.classList.remove('preloaderHeight');
+        document.querySelector('.preloader').remove();
+    }, 4000);
+    
+});
+
+window.addEventListener('scroll', fillScrollBar);
 
 
 
