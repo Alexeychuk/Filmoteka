@@ -115,7 +115,7 @@ function fillScrollBar() {
     const windowScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (windowScroll / height) * 100;
-    
+
     document.querySelector('.progress-bar').style.width = scrolled + '%';
 }
 
@@ -135,15 +135,14 @@ window.addEventListener('scroll', function (e) {
 
 window.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
+        window.scroll(0, -document.documentElement.clientHeight);
+        window.addEventListener('scroll', fillScrollBar);
         document.documentElement.classList.remove('preloaderHeight');
         document.querySelector('.preloader').remove();
     }, 4000);
     
 });
 
-window.addEventListener('scroll', fillScrollBar);
-
-
-
-
-
+window.onload = function() {
+    window.removeEventListener('scroll', fillScrollBar);
+}
