@@ -63,33 +63,28 @@ function toggleToQueue() {
     //     }
     // }
     localStorage.setItem('filmsQueue', JSON.stringify(arrayOfQueue));
-    //monitorButtonStatusText();
+    monitorButtonStatusText();
   
   }
 
+   let arrayOfWatched = [];
+
   function toggleToWatched(){
 
-    // let arrayOfWatched = [];
-    
-    
-    // if (filmsWatchedStorage !== null) {
-    //     arrayOfWatched.push(...JSON.parse(filmsWatchedStorage));
+   arrayOfWatched.push(selectFilm);
+       
+    // if(selectFilm){
+    //     const objOfSelectFilm = arrayOfQueue.find(obj => obj.id === selectFilm.id);
+        
+    //     if (objOfSelectFilm) {
+    //     const index = arrayOfQueue.indexOf(objOfSelectFilm);
+    //     arrayOfQueue.splice(index, 1);
+    //     } else {
+    //         arrayOfQueue.push(selectFilm);
+    //     }
     // }
-
-    // const objOfSelectFilm = arrayOfWatched.find(obj => obj.id === selectFilm.id);
-    
-    // if (objOfSelectFilm) {
-    //    const index = arrayOfWatched.indexOf(objOfSelectFilm);
-    //    arrayOfWatched.splice(index, 1);
-    // } else {
-    //     arrayOfWatched.push(selectFilm);
-    // }
-
-    // localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched))
-
-    // monitorButtonStatusText();
-
-
+    localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched));
+    monitorButtonStatusText();
 
   }
 

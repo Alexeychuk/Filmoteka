@@ -1,5 +1,5 @@
 
-const findUl = document.querySelector('films-list');
+const findUl = document.querySelector('.films-list');
 
 const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
   const li = document.createElement('li');
@@ -20,6 +20,7 @@ const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
 
   const mark = document.createElement('span');
   mark.classList.add('films-item__mark');
+  console.log(voteAverage);
   mark.textContent = voteAverage;
 
   li.append(img, mark, parag);
@@ -31,15 +32,45 @@ const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
 const drawQueueFilmList = () => {
   const fragment = document.createDocumentFragment();
   const keyFilm = localStorage.getItem('filmsQueue'); 
-  //findUl.innerHTML = '';
-  //console.log(keyFilm.length);
-  if (keyFilm !== null) {
+  findUl.innerHTML = '';
+  console.log(JSON.parse(keyFilm));
+  if (keyFilm) {
+    JSON.parse(keyFilm).forEach(el => {
+      const li = createLibraryCardFunc(`https://image.tmdb.org/t/p/w400/${el.backdrop_path}`, el.title, el.id, el.vote_average);    
+      fragment.appendChild(li);
 
-    keyFilm.forEach(el => {
-      const li = createLibraryCardFunc(`https://image.tmdb.org/t/p/w400/${el.backdrop_path}`, el.title, el.id, el.voteAverage);    
-      fragment.append(li);
     });
+    document.querySelector('.movies-wrap').classList.remove('display-section');
+    findUl.append(fragment);
+  } else {
+    const createSpan = document.createElement('span');
+    createSpan.textContent =
+      'You do not have to queue movies to watch. Add them.';
+      // refs.formWrap.classList.add('display-section');
+       //refs.thumbs.classList.add('display-section');
+      // refs.movieWrap.classList.remove('display-section')
+   // list.innerHTML = '';
+    list.append(createSpan);
+  }
+  refs.queueBtn.classList.add('header-search__item--active');
+  refs.favoriteBtn.classList.remove('header-search__item--active');
 
+  refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
+  refs.queueBtn.removeEventListener('click', drawQueueFilmList); 
+};
+
+const drawWatchedFilmList = () => {
+
+  const fragment = document.createDocumentFragment();
+  const keyFilm = localStorage.getItem('filmsWatched'); 
+  findUl.innerHTML = '';
+  if (keyFilm) {
+    JSON.parse(keyFilm).forEach(el => {
+      const li = createLibraryCardFunc(`https://image.tmdb.org/t/p/w400/${el.backdrop_path}`, el.title, el.id, el.vote_average);    
+      fragment.appendChild(li);
+
+    });
+    document.querySelector('.movies-wrap').classList.remove('display-section');
     findUl.append(fragment);
   } else {
     const createSpan = document.createElement('span');
@@ -51,28 +82,11 @@ const drawQueueFilmList = () => {
    // list.innerHTML = '';
     list.append(createSpan);
   }
-  // refs.queueBtn.classList.add('header-search__item--active');
-  // refs.favoriteBtn.classList.remove('header-search__item--active');
-};
-
-const drawWatchedFilmList = () => {
-  const fragment = document.createDocumentFragment();
-  const keyFilm = localStorage.getItem('filmsWatched');
-
-  if (!keyFilm === null) {
-    keyFilm.forEach(() => {
-      const li = createLibraryCardFunc();
-      fragment.append(li);
-      findUl.innerHTML = '';
-      findUl.append(fragment);
-    });
-  } else {
-    const createSpan = document.createComment('span');
-    createSpan.textContent = 'You do not have watched movies. Add them.';
-  }
-  // refs.queueBtn.classList.remove('header-search__item--active');
-  // refs.favoriteBtn.classList.add('header-search__item--active');
+  refs.queueBtn.classList.remove('header-search__item--active');
+  refs.favoriteBtn.classList.add('header-search__item--active');
   // refs.queueBtn.addEventListener('click', drawQueueFilmList);
 
+  refs.favoriteBtn.removeEventListener('click', drawWatchedFilmList);
+  refs.queueBtn.addEventListener('click', drawQueueFilmList); 
 
 };

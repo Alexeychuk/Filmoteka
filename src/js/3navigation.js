@@ -31,7 +31,9 @@ const activeHomePage = () => {
 
   refs.formWrap.classList.remove('display-section');
   refs.thumbs.classList.remove('display-section');
-  refs.movieWrap.classList.remove('display-section')
+  refs.movieWrap.classList.remove('display-section');
+  refs.thumbs.classList.remove('display-section');
+  fetchPopularMoviesList();
 };
 
 const activeLibraryPage = () => {
@@ -40,12 +42,14 @@ const activeLibraryPage = () => {
   refs.filmLibraryPageNone.classList.remove('display-section');
 
   refs.navbarHome.classList.remove('navbar__item--active');
-  refs.navbarLibrary.classList.add('navbar__item--active')
+  refs.navbarLibrary.classList.add('navbar__item--active');
   drawQueueFilmList();
 
   refs.queueBtn.classList.add('header-search__item--active');
+  refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
+  refs.formWrap.classList.add('display-section');
+  refs.thumbs.classList.add('display-section');
 
-  // refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
 
   
 };
