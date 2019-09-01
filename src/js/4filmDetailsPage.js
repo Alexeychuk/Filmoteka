@@ -91,7 +91,7 @@ const toggleToQueue = () => {
 
 
   const showDetails  = (selectFilm) => {
-    imgOfFilm.src = selectFilm.poster_path;
+    imgOfFilm.src = `https://image.tmdb.org/t/p/w500${selectFilm.poster_path}`;
     titleOfFilm.textContent = `${selectFilm.original_title } (${selectFilm.release_date.slice(0,4)})`;
     voteOfFilm.textContent = `${selectFilm.vote_average} / ${selectFilm.vote_count}`;
     popularityOfFilm.textContent = selectFilm.popularity.toFixed(1);
