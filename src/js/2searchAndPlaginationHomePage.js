@@ -122,6 +122,13 @@ window.addEventListener('scroll', function (e) {
     }
 });
 
+window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        document.documentElement.classList.remove('preloaderHeight');
+        document.querySelector('.preloader').remove();
+    }, 4000);
+    
+})
 
 
 

@@ -254,3 +254,136 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+
+.preloaderHeight {
+    overflow: hidden;
+}
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    z-index: 100;
+
+    &::after, &::before {
+        position: absolute;
+		content: '';
+		width: 80px;
+		height: 80px;
+		margin-top: -40px;
+		margin-left: -40px;
+		top: 50%;
+		left: 50%;
+		border: 5px solid #323232;
+		border-radius: 50%;
+    }
+
+    &::before {
+		animation: pulse-outer .8s ease-in infinite;
+                  
+	}
+
+	&::after {
+		animation: pulse-inner .8s linear infinite,
+                    iginite-circle  .8s linear infinite;
+	}	
+}
+
+@keyframes pulse-outer {
+	0% { 
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes pulse-inner {
+	0% { 
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.preloader__txt {
+    font-size: 80px;
+    color: #333;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: -200px;
+
+    span {
+        animation: letterIgnite 1.2s linear infinite;
+
+        &:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        &:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        &:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        &:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        &:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        &:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+    }
+}
+
+@keyframes letterIgnite {
+    0%, 80% {
+        color: #333;
+        text-shadow: none;
+    }
+    100% {
+        color: #fff;
+        text-shadow: 0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 80px #fff,
+                    0 0 120px #fff,
+                    0 0 160px #fff;
+    }
+}
+
+@keyframes iginite-circle {
+    0%, 80% {
+        color: #333;
+        box-shadow: none;
+    }
+    100% {
+        color: #fff;
+        box-shadow: 0 0 10px #fff,
+                    0 0 20px #fff,
+                    0 0 40px #fff,
+                    0 0 50px #fff,
+                    0 0 80px #fff;
+    }
+}
