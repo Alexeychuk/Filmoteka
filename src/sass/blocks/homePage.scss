@@ -315,7 +315,7 @@
 }
 
 .preloader__txt {
-    font-size: 80px;
+    font-size: 30px;
     color: #333;
     font-weight: 500;
     text-transform: uppercase;
@@ -402,4 +402,12 @@
     height: 8px;
     background: #4caf50;
     width: 0%;
+}
+
+
+@media (min-width:768px){
+    .preloader__txt {
+        font-size: 50px;
+    }
+    
 }

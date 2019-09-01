@@ -16,7 +16,7 @@ const refs = {
 
   formWrap: document.querySelector('.form-wrap'),
   thumbs: document.querySelector('.thumbs'),
-  movieWrap: document.querySelector('.movies-wrap')
+  movieWrap: document.querySelector('.movies-wrap'),
 };
 
 let selectFilm;
@@ -31,7 +31,9 @@ const activeHomePage = () => {
 
   refs.formWrap.classList.remove('display-section');
   refs.thumbs.classList.remove('display-section');
-  refs.movieWrap.classList.remove('display-section')
+  refs.movieWrap.classList.remove('display-section');
+  refs.thumbs.classList.remove('display-section');
+  fetchPopularMoviesList();
 };
 
 const activeLibraryPage = () => {
@@ -40,25 +42,41 @@ const activeLibraryPage = () => {
   refs.filmLibraryPageNone.classList.remove('display-section');
 
   refs.navbarHome.classList.remove('navbar__item--active');
-  refs.navbarLibrary.classList.add('navbar__item--active')
-  // drawQueueFilmList();
+  refs.navbarLibrary.classList.add('navbar__item--active');
+  drawQueueFilmList();
 
   refs.queueBtn.classList.add('header-search__item--active');
+  refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
+  refs.formWrap.classList.add('display-section');
+  refs.thumbs.classList.add('display-section');
 
-  // refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
 
   
 };
 
-const activeDetailsPage = (movieId, itsLibraryFilm) => {
+function activeDetailsPage( movieId, itsLibraryFilm) {
   refs.homePageNone.classList.add('display-section');
   refs.filmLibraryPageNone.classList.add('display-section');
+  refs.detailsPageNone.classList.remove('display-section');
+  
+  if(itsLibraryFilm){
+    selectFilm = 
+    JSON.parse(localStorage.getItem('filmsQueue')).find(obj => obj.id === movieId) ||
+    JSON.parse(localStorage.getItem('filmsWatched')).find(obj => obj.id === movieId) 
+  } else {
+    selectFilm = renderFilms.find(film => film.id === movieId);
+  }
+  showDetails(selectFilm);
 
-  // if(refs.filmItem ){
-  //   selectFilm = {}
-  //   showDetails(selectFilm)
-  // }
+  
+
+  
 };
+
+refs.addToQueue.addEventListener('click', toggleToQueue);
+  refs.addToWatched.addEventListener('click', toggleToWatched);
+
+//document.querySelector('main').addEventListener('click', activeDetailsPage);
 // activeDetailsPage()
 activeHomePage();
 

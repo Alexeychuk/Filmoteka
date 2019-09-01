@@ -32,22 +32,19 @@ function createCardFunc( imgPath, filmTitle, movieId){
     span.classList.add("films-item__name");
     span.textContent = filmTitle;
     parag.append(span);
-     li.append(img,parag);   
+    li.append(img,parag);   
 
-    li.addEventListener('click', function handleItem(){
-        console.log(this);
-    })
-
-    return li;
-   
+    li.addEventListener('click',()=> { activeDetailsPage(movieId,false) } );
+   return li;
 }
 
 function fetchPopularMoviesList(){
-    var fragment = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
     fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=9e008f5d338cd1f22f432e50e537417d&language=en-US&page=${pageNumber}&include_adult=false`)
         .then(response => response.json())
         .then(data => {
+                renderFilms = [...data.results];
                 document.querySelector('.films-list').innerHTML = '';
                 data.results.map(el => {
                     const moviePath = `https://image.tmdb.org/t/p/w400/${el.backdrop_path}`;
@@ -57,7 +54,7 @@ function fetchPopularMoviesList(){
                    fragment.appendChild(createCardFunc(moviePath, movieTitle, movieId));
 
                 });
-                renderFilms = fragment;
+                
                 list.innerHTML = '';
                 list.appendChild(fragment);
             })
@@ -71,7 +68,7 @@ function fetchPopularMoviesList(){
             .then(response => response.json())
             .then(data => {
                 genres = data.genres;
-                console.log(genres);  
+             
                 })
             .catch(err => {
                 console.log(err);
