@@ -46,7 +46,7 @@ function fetchPopularMoviesList(){
         .then(response => response.json())
         .then(data => {
                 renderFilms = [...data.results];
-                document.querySelector('.films-list').innerHTML = '';
+                list.innerHTML = '';
                 data.results.map(el => {
                     const moviePath = `https://image.tmdb.org/t/p/w400/${el.backdrop_path}`;
                     const movieTitle = `${el.title} (${el.release_date.slice(0, 4)})`;

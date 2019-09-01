@@ -20,28 +20,33 @@ let filmsWatchedStorage = localStorage.getItem('filmsWatched');
 // localStorage.setItem('filmsWatched', '[]');
 
 function monitorButtonStatusText() {
-    console.log(filmsQueueStorage);
+    
     if(filmsQueueStorage){
-        if (JSON.parse(filmsQueueStorage).find(obj => obj.id === selectFilm.id)) {
+      
+        if (JSON.parse(filmsQueueStorage).find(obj => obj.id === Number(selectFilm.id))) {
+             console.log('yes');
             addToQueueBtn.textContent = 'Delete from queue';
-            addDeleteFromQueue.src = '/images/removeFromQueue.jpg'
-        } else {
+            addDeleteFromQueue.src = '/images/removeFromQueue.jpg';
+            const arr = JSON.parse(filmsQueueStorage).filter(el => el.id !== selectFilm.id);
+            
+        } 
+    }else {
+            console.log('no');
             addToQueueBtn.textContent = 'Add to queue';
-            addDeleteFromQueue.src = '/images/detailsCalendar.png'
+            addDeleteFromQueue.src = '/images/detailsCalendar.png' ;
         }
-    }
     
 
     if(filmsWatchedStorage){
-         if (JSON.parse(filmsWatchedStorage).find(obj => obj.id === selectFilm.id)) {
+         if (JSON.parse(filmsWatchedStorage).find(obj => obj.id === Number(selectFilm.id))) {
         addToWatchedBtn.textContent = 'Delete from watched';
         addDeleteFromWatched.src = '/images/addDeleteFromWatched.jpg'
-        } else {
+        } 
+
+    }else {
             addToWatchedBtn.textContent = 'Add to watched';
             addDeleteFromWatched.src = '/images/detailsVideo.png';
         }
-
-    }
 
    
 }

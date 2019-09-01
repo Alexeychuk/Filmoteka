@@ -60,8 +60,7 @@ function activeDetailsPage(e) {
   
   if(itsLibraryFilm){
     
-    console.log(JSON.parse(localStorage.getItem('filmsQueue')).find(obj => obj.id === Number(movieId)))
-    console.log(JSON.parse(localStorage.getItem('filmsWatched')).find(obj => obj.id === Number(movieId)))
+    
 
     selectFilm = 
     JSON.parse(localStorage.getItem('filmsQueue')).find(obj => obj.id === Number(movieId)) ||
