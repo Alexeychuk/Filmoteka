@@ -38,14 +38,14 @@ const activeLibraryPage = () => {
   refs.detailsPageNone.classList.add('display-section');
   refs.homePageNone.classList.add('display-section');
   refs.filmLibraryPageNone.classList.remove('display-section');
+
   refs.navbarHome.classList.remove('navbar__item--active');
   refs.navbarLibrary.classList.add('navbar__item--active')
-  drawQueueFilmList();
+  // drawQueueFilmList();
 
   refs.queueBtn.classList.add('header-search__item--active');
 
-  refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
-  
+  // refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
 
   
 };
@@ -61,6 +61,8 @@ const activeDetailsPage = (movieId, itsLibraryFilm) => {
 };
 // activeDetailsPage()
 activeHomePage();
+
+
 refs.home_library[0].addEventListener('click', activeHomePage);
 refs.home_library[1].addEventListener('click', activeLibraryPage);
 refs.logo.addEventListener('click', activeHomePage);
