@@ -4,7 +4,8 @@ let renderFilms, genres, pageNumber;
 
 pageNumber = 1;
 
-const list = document.querySelector('.films-list');
+const list = document.querySelector('[data-page="home"]');
+list.addEventListener('click',activeDetailsPage);
 
 function createCardFunc( imgPath, filmTitle, movieId){
 
@@ -34,7 +35,7 @@ function createCardFunc( imgPath, filmTitle, movieId){
     parag.append(span);
     li.append(img,parag);   
 
-    li.addEventListener('click',()=> { activeDetailsPage(movieId,false) } );
+    
    return li;
 }
 
