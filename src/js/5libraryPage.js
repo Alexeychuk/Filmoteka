@@ -43,14 +43,14 @@ const drawQueueFilmList = () => {
     const createSpan = document.createElement('span');
     createSpan.textContent =
       'You do not have to queue movies to watch. Add them.';
-      refs.formWrap.classList.add('display-section');
-      refs.thumbs.classList.add('display-section');
-      refs.movieWrap.classList.remove('display-section')
+      // refs.formWrap.classList.add('display-section');
+      // refs.thumbs.classList.add('display-section');
+      // refs.movieWrap.classList.remove('display-section')
     list.innerHTML = '';
     list.append(createSpan);
   }
-  refs.queueBtn.classList.add('header-search__item--active');
-  refs.favoriteBtn.classList.remove('header-search__item--active');
+  // refs.queueBtn.classList.add('header-search__item--active');
+  // refs.favoriteBtn.classList.remove('header-search__item--active');
 };
 
 const drawWatchedFilmList = () => {
@@ -68,9 +68,9 @@ const drawWatchedFilmList = () => {
     const createSpan = document.createComment('span');
     createSpan.textContent = 'You do not have watched movies. Add them.';
   }
-  refs.queueBtn.classList.remove('header-search__item--active');
-  refs.favoriteBtn.classList.add('header-search__item--active');
-  refs.queueBtn.addEventListener('click', drawQueueFilmList);
+  // refs.queueBtn.classList.remove('header-search__item--active');
+  // refs.favoriteBtn.classList.add('header-search__item--active');
+  // refs.queueBtn.addEventListener('click', drawQueueFilmList);
 
 
 };
