@@ -33,7 +33,7 @@ const drawQueueFilmList = () => {
   const fragment = document.createDocumentFragment();
   const keyFilm = localStorage.getItem('filmsQueue'); 
   findUl.innerHTML = '';
-  console.log(JSON.parse(keyFilm));
+
   if (keyFilm) {
     JSON.parse(keyFilm).forEach(el => {
       const li = createLibraryCardFunc(`https://image.tmdb.org/t/p/w400/${el.backdrop_path}`, el.title, el.id, el.vote_average);    
