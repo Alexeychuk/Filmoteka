@@ -19,7 +19,7 @@ let filmsWatchedStorage = localStorage.getItem('filmsWatched');
 
 const monitorButtonStatusTex = () => {
 
-    if ([JSON.parse(filmsQueueStorage.find(obj => obj.id === selectFilm.id))]) {
+    if (JSON.parse(filmsQueueStorage).find(obj => obj.id === selectFilm.id)) {
         addToQueueBtn.textContent = 'Delete from queue';
         addDeleteFromQueue.src = '/images/removeFromQueue.jpg'
     } else {
@@ -28,7 +28,7 @@ const monitorButtonStatusTex = () => {
     }
 
     
-    if ([JSON.parse(filmsWatchedStorage.find(obj => obj.id === selectFilm.id))]) {
+    if (JSON.parse(filmsWatchedStorage).find(obj => obj.id === selectFilm.id)) {
         addToWatchedBtn.textContent = 'Delete from watched';
         addDeleteFromWatched.src = '/images/addDeleteFromWatched.jpg'
     } else {

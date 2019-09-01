@@ -16,10 +16,10 @@ const refs = {
 
   formWrap: document.querySelector('.form-wrap'),
   thumbs: document.querySelector('.thumbs'),
-  movieWrap: document.querySelector('.movies-wrap')
+  movieWrap: document.querySelector('.movies-wrap'),
 };
 
-let selectFilm;
+let selectFilm ;
 
 const activeHomePage = () => {
   refs.homePageNone.classList.remove('display-section');
@@ -50,15 +50,26 @@ const activeLibraryPage = () => {
   
 };
 
-const activeDetailsPage = (movieId, itsLibraryFilm) => {
+function activeDetailsPage( movieId, itsLibraryFilm) {
   refs.homePageNone.classList.add('display-section');
   refs.filmLibraryPageNone.classList.add('display-section');
+  refs.detailsPageNone.classList.remove('display-section');
+  
+  if(itsLibraryFilm){
+    selectFilm = 
+    JSON.parse(localStorage.getItem('filmsQueue')).find(obj => obj.id === movieId) ||
+    JSON.parse(localStorage.getItem('filmsWatched')).find(obj => obj.id === movieId) 
+  } else {
+    selectFilm = renderFilms.find(film => film.id === movieId);
+  }
+  showDetails(selectFilm);
 
-  // if(refs.filmItem ){
-  //   selectFilm = {}
-  //   showDetails(selectFilm)
-  // }
+  refs.addToWatched.addEventListener('click', ()=> {
+
+  })
 };
+
+//document.querySelector('main').addEventListener('click', activeDetailsPage);
 // activeDetailsPage()
 activeHomePage();
 
