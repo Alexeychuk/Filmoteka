@@ -50,7 +50,7 @@ function scripts() {
     .pipe(babel())
     .pipe(concat('scripts.js'))
     .pipe(dest('build/js'))
-    .pipe(uglify())
+    
     .pipe(rename('scripts.min.js'))
     .pipe(dest('build/js'));
 }
