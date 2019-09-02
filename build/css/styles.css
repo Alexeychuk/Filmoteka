@@ -495,17 +495,12 @@ main {
 }
 
 .detail {
-  padding: 25px 12px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .detail__img--item {
-  width: 274px;
-  height: 403px;
   margin-bottom: 15px;
-}
-
-.detail__description {
-  width: 274px;
 }
 
 .detail__description--title {
@@ -519,7 +514,7 @@ main {
 .detail__description--votes {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
+  color: rgba(55, 44, 72, 0.702);
   background-color: #77c1bb;
 }
 
@@ -536,7 +531,7 @@ main {
 .detail__description--popularity {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
+  color: rgba(55, 44, 72, 0.702);
 }
 
 .detail__popularity--title {
@@ -552,7 +547,7 @@ main {
 .detail__description--name {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
+  color: rgba(55, 44, 72, 0.702);
   background-color: #77c1bb;
 }
 
@@ -569,8 +564,8 @@ main {
 .detail__description--genre {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
   margin-bottom: 20px;
+  color: rgba(55, 44, 72, 0.702);
 }
 
 .detail__genre--title {
@@ -592,11 +587,11 @@ main {
 }
 
 .detail__description--text {
-  color: #372c48;
+  color: rgba(55, 44, 72, 0.702);
   font-size: 14px;
   font-weight: 500;
   color: #556270;
-  line-height: 15px;
+  line-height: 18px;
   padding: 0 10px 15px 5px;
 }
 
@@ -621,8 +616,30 @@ main {
 }
 
 .detail__button {
-  padding: 10px 12px;
+  padding: 10px 3px;
+  border-radius: 5px;
   flex-basis: 45%;
+  text-align: right;
+  position: relative;
+  background-color: transparent;
+}
+
+.detail__button:before {
+  position: absolute;
+  left: 0;
+}
+
+.detail__buttons--favorite:before {
+  content: url("/images/detailsVideo.png");
+}
+
+.detail__buttons--queue:before {
+  content: url("/images/detailsCalendar.png");
+}
+
+.detail__button--active {
+  background-color: #77c1bb;
+  color: white;
 }
 
 .videoBtn {
@@ -1117,17 +1134,11 @@ body {
   .detail {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
     background-color: #fff;
   }
 
   .detail--nonVisible {
     display: none;
-  }
-
-  .detail__img {
-    width: 357px;
-    height: 526px;
   }
 
   .detail__img--item {

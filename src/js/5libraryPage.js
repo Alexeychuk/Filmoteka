@@ -21,7 +21,6 @@ const createLibraryCardFunc = (imgPath, filmTitle, movieId, voteAverage) => {
 
   const mark = document.createElement('span');
   mark.classList.add('films-item__mark');
-  console.log(voteAverage);
   mark.textContent = voteAverage;
 
   li.append(img, mark, parag);

@@ -25,13 +25,16 @@ const activeHomePage = () => {
   refs.filmLibraryPageNone.classList.add('display-section');
   thumbs.addEventListener('click', plaginationNavigation);
   refs.navbarHome.classList.add('navbar__item--active');
-  refs.navbarLibrary.classList.remove('navbar__item--active')
+  refs.navbarLibrary.classList.remove('navbar__item--active');
 
   refs.formWrap.classList.remove('display-section');
   refs.thumbs.classList.remove('display-section');
-  
+
   refs.thumbs.classList.remove('display-section');
   fetchPopularMoviesList();
+
+  refs.addToQueue.removeEventListener('click', toggleToQueue);
+  refs.addToWatched.removeEventListener('click', toggleToWatched);
 };
 
 const activeLibraryPage = () => {
@@ -45,42 +48,45 @@ const activeLibraryPage = () => {
 
   refs.queueBtn.classList.add('header-search__item--active');
   refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
-  
 
+  refs.addToQueue.removeEventListener('click', toggleToQueue);
+  refs.addToWatched.removeEventListener('click', toggleToWatched);
 };
 
 function activeDetailsPage(e) {
   const movieId = e.target.closest('li').id;
-  
+
   const itsLibraryFilm = e.currentTarget.dataset.page !== 'home';
-  
+
   refs.movieWrap.classList.add('display-section');
   refs.filmLibraryPageNone.classList.add('display-section');
   refs.detailsPageNone.classList.remove('display-section');
-  
-  if(itsLibraryFilm){
-    
-    
 
-    selectFilm = 
-    JSON.parse(localStorage.getItem('filmsQueue')).find(obj => obj.id === Number(movieId)) ||
-    JSON.parse(localStorage.getItem('filmsWatched')).find(obj => obj.id === Number(movieId))
-    
+  if (itsLibraryFilm) {
+    selectFilm =
+      JSON.parse(localStorage.getItem('filmsQueue')).find(
+        obj => obj.id === Number(movieId),
+      ) ||
+      JSON.parse(localStorage.getItem('filmsWatched')).find(
+        obj => obj.id === Number(movieId),
+      );
+
     //console.log(selectFilm);
   } else {
     selectFilm = renderFilms.find(film => film.id === Number(movieId));
-    
   }
+  monitorButtonStatusText()
   showDetails(selectFilm);
-};
 
-refs.addToQueue.addEventListener('click', toggleToQueue);
-  refs.addToWatched.addEventListener('click', toggleToWatched);
+  refs.addToQueue.addEventListener('click', toggleToQueue);
+refs.addToWatched.addEventListener('click', toggleToWatched);
+}
+
+
 
 //document.querySelector('main').addEventListener('click', activeDetailsPage);
 // activeDetailsPage()
 activeHomePage();
-
 
 refs.home_library[0].addEventListener('click', activeHomePage);
 refs.home_library[1].addEventListener('click', activeLibraryPage);
