@@ -615,8 +615,14 @@ main {
   outline: none;
 }
 
-.detail__buttons--favorite {
-  padding-right: 15px;
+.detail__description--buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail__button {
+  padding: 10px 12px;
+  flex-basis: 45%;
 }
 
 .videoBtn {

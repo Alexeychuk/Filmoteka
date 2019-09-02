@@ -138,7 +138,7 @@ window.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', fillScrollBar);
         document.documentElement.classList.remove('preloaderHeight');
         document.querySelector('.preloader').remove();
-    }, 4000);
+    }, 0);
     
 });
 

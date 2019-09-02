@@ -2,8 +2,6 @@
   padding: 25px 12px;
 }
 
-
-
 .detail__img--item {
   width: 274px;
   height: 403px;
@@ -124,8 +122,18 @@
   outline: none;
 }
 
-.detail__buttons--favorite {
-  padding-right: 15px;
+// .detail__buttons--favorite {
+//   padding-right: 15px;
+// }
+
+.detail__description--buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail__button{
+  padding: 10px 12px;
+  flex-basis: 45%;
 }
 
 .videoBtn {
@@ -141,7 +149,7 @@
   }
 
   .detail--nonVisible{
-    display:  none;
+    display: none;
 }
 
   .detail__img {
@@ -182,9 +190,9 @@
 }
 
 @media (min-width: 1024px) {
-    .detail--nonVisible{
-        display:  none;
-    }
+  .detail--nonVisible  {
+    display: none;
+  }
     
   .detail__img {
     width: 428px;
