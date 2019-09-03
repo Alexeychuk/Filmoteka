@@ -1,17 +1,10 @@
 .detail {
-  padding: 25px 12px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
-
-
 
 .detail__img--item {
-  width: 274px;
-  height: 403px;
   margin-bottom: 15px;
-}
-
-.detail__description {
-  width: 274px;
 }
 
 .detail__description--title {
@@ -26,68 +19,75 @@
 .detail__description--votes {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
+  color: $disabled-text-color;
   background-color: $primary-color;
 }
 
 .detail__votes--title {
-  padding: 10px 55px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__votes--value {
   padding: 10px 0;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__description--popularity {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
+  color: $disabled-text-color;
 }
 
 .detail__popularity--title {
-  padding: 10px 55px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__popularity--value {
   padding: 10px 0;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__description--name {
   display: flex;
   justify-content: flex-start;
-  width: 274px;
+  color: $disabled-text-color;
   background-color: $primary-color;
 }
 
 .detail__name--title {
-  padding: 10px 26px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__name--value {
   font-size: 13px;
-  padding: 10px 0;
+  padding: 10px 5px 10px 0;
+  flex-basis: 50%;
 }
 
 .detail__description--genre {
-  display: flex;
-  justify-content: flex-start;
-  width: 274px;
   margin-bottom: 20px;
+  color: $disabled-text-color;
+  display: flex;
 }
 
 .detail__genre--title {
-  padding: 10px 97px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__genre--value {
   padding: 10px 0;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__description--about {
@@ -100,12 +100,12 @@
 }
 
 .detail__description--text {
-  color: #372c48;
+  color: $disabled-text-color;
 
   font-size: 14px;
   font-weight: 500;
   color: $thumbs-background-color;
-  line-height: 15px;
+  line-height: 18px;
   padding: 0 10px 15px 5px;
 }
 
@@ -124,8 +124,38 @@
   outline: none;
 }
 
-.detail__buttons--favorite {
-  padding-right: 15px;
+.detail__description--buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail__button {
+  padding: 10px 3px;
+  border-radius: 5px;
+  flex-basis: 45%;
+  text-align: center;
+  position: relative;
+  background-color: transparent;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.detail__button:before {
+  position: absolute;
+  left: 0;
+}
+
+// .detail__buttons--favorite:before {
+//   content: url('/images/detailsVideo.png');
+// }
+
+// .detail__buttons--queue:before {
+//   content: url('/images/detailsCalendar.png');
+// }
+
+.detail__button--active {
+  background-color: $primary-color;
+  color: $item-text-color;
 }
 
 .videoBtn {
@@ -136,17 +166,15 @@
   .detail {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
     background-color: #fff;
   }
 
-  .detail--nonVisible{
-    display:  none;
-}
+  .detail--nonVisible {
+    display: none;
+  }
 
   .detail__img {
-    width: 357px;
-    height: 526px;
+    flex-basis: 50%;
   }
 
   .detail__img--item {
@@ -156,18 +184,10 @@
   }
 
   .detail__description {
-    width: 340px;
-  }
-
-  .detail__description--votes,
-  .detail__description--popularity,
-  .detail__description--name,
-  .detail__description--genre {
-    width: 340px;
+    flex-basis: 43%;
   }
 
   .detail__description--title {
-    padding-top: 5px;
     padding-bottom: 10px;
     font-weight: 700;
   }
@@ -182,26 +202,16 @@
 }
 
 @media (min-width: 1024px) {
-    .detail--nonVisible{
-        display:  none;
-    }
-    
+  .detail--nonVisible {
+    display: none;
+  }
+
   .detail__img {
-    width: 428px;
-    height: 630px;
   }
 
   .detail__description {
-    width: 452px;
-    margin-right: 36px;
   }
 
-  .detail__description--votes,
-  .detail__description--popularity,
-  .detail__description--name,
-  .detail__description--genre {
-    width: 452px;
-  }
 
   .detail__description--genre {
     padding-bottom: 26px;

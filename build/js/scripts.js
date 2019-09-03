@@ -71,6 +71,14 @@ fetchPopularMoviesList();
 fetchGenres();
 "use strict";
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var inputValue = document.querySelector('.search-form__input').value;
 var searchForm = document.querySelector('.search-form');
 var input = document.querySelector('.search-form__input');
@@ -98,6 +106,7 @@ function fetchFilms() {
         warning.remove();
       }, 2000);
     } else {
+      renderFilms = _toConsumableArray(data.results);
       list.innerHTML = '';
       data.results.map(function (el) {
         var moviePath = "https://image.tmdb.org/t/p/w400/".concat(el.backdrop_path);
@@ -125,26 +134,39 @@ function searchFilms(e) {
 function plaginationNavigation(e) {
   if (e.target.classList.contains('thumbs__prev-btn')) {
     if (pageNumber > 1) {
-      paginationTxt.innerText--;
-      pageNumber--;
+      pageNumber -= 1;
+      paginationTxt.innerText = pageNumber;
 
       if (inputValue) {
         fetchFilms();
-      } else fetchPopularMoviesList();
+      } else {
+        fetchPopularMoviesList();
+      }
 
       if (pageNumber === 1) {
         btnPrev.classList.remove('active');
         btnPrev.classList.add('disable');
       }
+
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     }
   }
 
   if (e.target.classList.contains('thumbs__next-btn')) {
     btnPrev.classList.add('active');
-    paginationTxt.innerText++;
-    pageNumber++;
-    if (inputValue) fetchFilms();else fetchPopularMoviesList();
+    pageNumber += 1;
+    paginationTxt.innerText = pageNumber;
+
+    if (inputValue) {
+      fetchFilms();
+    } else {
+      fetchPopularMoviesList();
+    }
   }
+
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 }
 
 function scrollToTop() {
@@ -182,7 +204,7 @@ window.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', fillScrollBar);
     document.documentElement.classList.remove('preloaderHeight');
     document.querySelector('.preloader').remove();
-  }, 4000);
+  }, 1000);
 });
 
 window.onload = function () {
@@ -210,7 +232,7 @@ var refs = {
 };
 var selectFilm;
 
-var activeHomePage = function activeHomePage() {
+function activeHomePage() {
   refs.movieWrap.classList.remove('display-section');
   refs.detailsPageNone.classList.add('display-section');
   refs.filmLibraryPageNone.classList.add('display-section');
@@ -220,10 +242,14 @@ var activeHomePage = function activeHomePage() {
   refs.formWrap.classList.remove('display-section');
   refs.thumbs.classList.remove('display-section');
   refs.thumbs.classList.remove('display-section');
+  pageNumber = 1;
+  paginationTxt.innerText = pageNumber;
   fetchPopularMoviesList();
-};
+  refs.addToQueue.removeEventListener('click', toggleToQueue);
+  refs.addToWatched.removeEventListener('click', toggleToWatched);
+}
 
-var activeLibraryPage = function activeLibraryPage() {
+function activeLibraryPage() {
   refs.detailsPageNone.classList.add('display-section');
   refs.movieWrap.classList.add('display-section');
   refs.filmLibraryPageNone.classList.remove('display-section');
@@ -232,9 +258,12 @@ var activeLibraryPage = function activeLibraryPage() {
   drawQueueFilmList();
   refs.queueBtn.classList.add('header-search__item--active');
   refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
-};
+  refs.addToQueue.removeEventListener('click', toggleToQueue);
+  refs.addToWatched.removeEventListener('click', toggleToWatched);
+}
 
 function activeDetailsPage(e) {
+  if (!e.target.closest('li')) return;
   var movieId = e.target.closest('li').id;
   var itsLibraryFilm = e.currentTarget.dataset.page !== 'home';
   refs.movieWrap.classList.add('display-section');
@@ -246,26 +275,32 @@ function activeDetailsPage(e) {
       return obj.id === Number(movieId);
     }) || JSON.parse(localStorage.getItem('filmsWatched')).find(function (obj) {
       return obj.id === Number(movieId);
-    }); //console.log(selectFilm);
+    });
   } else {
     selectFilm = renderFilms.find(function (film) {
       return film.id === Number(movieId);
     });
   }
 
+  monitorButtonStatusText();
   showDetails(selectFilm);
+  refs.addToQueue.addEventListener('click', toggleToQueue);
+  refs.addToWatched.addEventListener('click', toggleToWatched);
 }
-
-;
-refs.addToQueue.addEventListener('click', toggleToQueue);
-refs.addToWatched.addEventListener('click', toggleToWatched); //document.querySelector('main').addEventListener('click', activeDetailsPage);
-// activeDetailsPage()
 
 activeHomePage();
 refs.home_library[0].addEventListener('click', activeHomePage);
 refs.home_library[1].addEventListener('click', activeLibraryPage);
 refs.logo.addEventListener('click', activeHomePage);
 "use strict";
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 var addToWatchedBtn = document.querySelector('.detail__buttons--favorite');
 var addToQueueBtn = document.querySelector('.detail__buttons--queue');
@@ -279,67 +314,85 @@ var originalNameOfFilm = document.querySelector('.detail__name--value');
 var genreOfFilm = document.querySelector('.detail__genre--value');
 var aboutFilm = document.querySelector('.detail__description--text');
 var filmsQueueStorage = localStorage.getItem('filmsQueue');
-var filmsWatchedStorage = localStorage.getItem('filmsWatched'); // localStorage.setItem('filmsQueue', '[]');
-// localStorage.setItem('filmsWatched', '[]');
+var filmsWatchedStorage = localStorage.getItem('filmsWatched');
 
 function monitorButtonStatusText() {
-  if (filmsQueueStorage) {
-    if (JSON.parse(filmsQueueStorage).find(function (obj) {
+  if (localStorage.getItem('filmsQueue')) {
+    var resQueue = JSON.parse(localStorage.getItem('filmsQueue')).find(function (obj) {
       return obj.id === Number(selectFilm.id);
-    })) {
-      console.log('yes');
-      addToQueueBtn.textContent = 'Delete from queue';
-      addDeleteFromQueue.src = '/images/removeFromQueue.jpg';
-      var arr = JSON.parse(filmsQueueStorage).filter(function (el) {
-        return el.id !== selectFilm.id;
-      });
+    });
+
+    if (resQueue) {
+      addToQueueBtn.classList.add('detail__button--active');
+      addToQueueBtn.textContent = 'delete from queue';
+    } else {
+      addToQueueBtn.classList.remove('detail__button--active');
+      addToQueueBtn.textContent = 'add to queue';
     }
-  } else {
-    console.log('no');
-    addToQueueBtn.textContent = 'Add to queue';
-    addDeleteFromQueue.src = '/images/detailsCalendar.png';
   }
 
-  if (filmsWatchedStorage) {
-    if (JSON.parse(filmsWatchedStorage).find(function (obj) {
+  if (localStorage.getItem('filmsWatched')) {
+    var resWatched = JSON.parse(localStorage.getItem('filmsWatched')).find(function (obj) {
       return obj.id === Number(selectFilm.id);
-    })) {
-      addToWatchedBtn.textContent = 'Delete from watched';
-      addDeleteFromWatched.src = '/images/addDeleteFromWatched.jpg';
+    });
+
+    if (resWatched) {
+      addToWatchedBtn.classList.add('detail__button--active');
+      addToWatchedBtn.textContent = 'delete from favorite';
+    } else {
+      addToWatchedBtn.classList.remove('detail__button--active');
+      addToWatchedBtn.textContent = 'add to library';
     }
-  } else {
-    addToWatchedBtn.textContent = 'Add to watched';
-    addDeleteFromWatched.src = '/images/detailsVideo.png';
   }
 }
 
-var arrayOfQueue = [];
-
 function toggleToQueue() {
+  var localQueue = JSON.parse(localStorage.getItem('filmsQueue'));
+  var arrayOfQueue = [];
+
+  if (localQueue) {
+    arrayOfQueue.push.apply(arrayOfQueue, _toConsumableArray(localQueue));
+  }
+
   var dublicateMovie = arrayOfQueue.find(function (el) {
     return el.id === selectFilm.id;
   });
 
   if (!dublicateMovie) {
     arrayOfQueue.push(selectFilm);
+    localStorage.setItem('filmsQueue', JSON.stringify(arrayOfQueue));
+  } else {
+    var resArr = arrayOfQueue.filter(function (el) {
+      return el.id !== selectFilm.id;
+    });
+    localStorage.setItem('filmsQueue', JSON.stringify(resArr));
   }
 
-  localStorage.setItem('filmsQueue', JSON.stringify(arrayOfQueue));
   monitorButtonStatusText();
 }
 
-var arrayOfWatched = [];
-
 function toggleToWatched() {
+  var localWatched = JSON.parse(localStorage.getItem('filmsWatched'));
+  var arrayOfWatched = [];
+
+  if (localWatched) {
+    arrayOfWatched.push.apply(arrayOfWatched, _toConsumableArray(localWatched));
+  }
+
   var dublicateMovie = arrayOfWatched.find(function (el) {
     return el.id === selectFilm.id;
   });
 
   if (!dublicateMovie) {
     arrayOfWatched.push(selectFilm);
+    localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched));
+  } else {
+    var resArr = arrayOfWatched.filter(function (el) {
+      return el.id !== selectFilm.id;
+    });
+    localStorage.setItem('filmsWatched', JSON.stringify(resArr));
   }
 
-  localStorage.setItem('filmsWatched', JSON.stringify(arrayOfWatched));
   monitorButtonStatusText();
 }
 
@@ -391,7 +444,6 @@ var createLibraryCardFunc = function createLibraryCardFunc(imgPath, filmTitle, m
   parag.append(span);
   var mark = document.createElement('span');
   mark.classList.add('films-item__mark');
-  console.log(voteAverage);
   mark.textContent = voteAverage;
   li.append(img, mark, parag);
   return li;
@@ -411,11 +463,7 @@ var drawQueueFilmList = function drawQueueFilmList() {
     findUl.append(fragment);
   } else {
     var createSpan = document.createElement('span');
-    createSpan.textContent = 'You do not have to queue movies to watch. Add them.'; // refs.formWrap.classList.add('display-section');
-    //refs.thumbs.classList.add('display-section');
-    // refs.movieWrap.classList.remove('display-section')
-    // list.innerHTML = '';
-
+    createSpan.textContent = 'You do not have to queue movies to watch. Add them.';
     list.append(createSpan);
   }
 
@@ -434,22 +482,16 @@ var drawWatchedFilmList = function drawWatchedFilmList() {
     JSON.parse(keyFilm).forEach(function (el) {
       var li = createLibraryCardFunc("https://image.tmdb.org/t/p/w400/".concat(el.backdrop_path), el.title, el.id, el.vote_average);
       fragment.appendChild(li);
-    }); //document.querySelector('.movies-wrap').classList.remove('display-section');
-
+    });
     findUl.append(fragment);
   } else {
     var createSpan = document.createElement('span');
-    createSpan.textContent = 'You do not have to queue movies to watch. Add them.'; // refs.formWrap.classList.add('display-section');
-    // refs.thumbs.classList.add('display-section');
-    // refs.movieWrap.classList.remove('display-section')
-    // list.innerHTML = '';
-
+    createSpan.textContent = 'You do not have to queue movies to watch. Add them.';
     list.append(createSpan);
   }
 
   refs.queueBtn.classList.remove('header-search__item--active');
-  refs.favoriteBtn.classList.add('header-search__item--active'); // refs.queueBtn.addEventListener('click', drawQueueFilmList);
-
+  refs.favoriteBtn.classList.add('header-search__item--active');
   refs.favoriteBtn.removeEventListener('click', drawWatchedFilmList);
   refs.queueBtn.addEventListener('click', drawQueueFilmList);
 };
