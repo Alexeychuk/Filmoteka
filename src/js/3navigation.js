@@ -31,6 +31,10 @@ function activeHomePage() {
   refs.thumbs.classList.remove('display-section');
 
   refs.thumbs.classList.remove('display-section');
+
+  pageNumber = 1;
+  paginationTxt.innerText = pageNumber;
+  
   fetchPopularMoviesList();
 
   refs.addToQueue.removeEventListener('click', toggleToQueue);
@@ -54,11 +58,9 @@ function activeLibraryPage() {
 }
 
 function activeDetailsPage(e) {
-
   if (!e.target.closest('li')) return;
 
   const movieId = e.target.closest('li').id;
-  
 
   const itsLibraryFilm = e.currentTarget.dataset.page !== 'home';
 
@@ -74,10 +76,7 @@ function activeDetailsPage(e) {
       JSON.parse(localStorage.getItem('filmsWatched')).find(
         obj => obj.id === Number(movieId),
       );
-
-
   } else {
-    console.log(renderFilms)
     selectFilm = renderFilms.find(film => film.id === Number(movieId));
   }
   monitorButtonStatusText();
@@ -86,7 +85,6 @@ function activeDetailsPage(e) {
   refs.addToQueue.addEventListener('click', toggleToQueue);
   refs.addToWatched.addEventListener('click', toggleToWatched);
 }
-
 
 activeHomePage();
 

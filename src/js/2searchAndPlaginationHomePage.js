@@ -63,28 +63,40 @@ function searchFilms(e) {
 function plaginationNavigation(e) {
   if (e.target.classList.contains('thumbs__prev-btn')) {
     if (pageNumber > 1) {
-      paginationTxt.innerText--;
-      pageNumber--;
+      pageNumber -= 1;
+      paginationTxt.innerText = pageNumber;
 
       if (inputValue) {
         fetchFilms();
-      } else fetchPopularMoviesList();
+      } else {
+        fetchPopularMoviesList();
+      }
 
       if (pageNumber === 1) {
         btnPrev.classList.remove('active');
         btnPrev.classList.add('disable');
       }
+
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     }
   }
 
   if (e.target.classList.contains('thumbs__next-btn')) {
     btnPrev.classList.add('active');
-    paginationTxt.innerText++;
-    pageNumber++;
 
-    if (inputValue) fetchFilms();
-    else fetchPopularMoviesList();
+    pageNumber += 1;
+    paginationTxt.innerText = pageNumber;
+
+    if (inputValue) {
+      fetchFilms();
+    } else {
+      fetchPopularMoviesList();
+    }
   }
+
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 }
 
 function scrollToTop() {
