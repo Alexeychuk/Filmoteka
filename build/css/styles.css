@@ -519,13 +519,15 @@ main {
 }
 
 .detail__votes--title {
-  padding: 10px 55px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__votes--value {
   padding: 10px 0;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__description--popularity {
@@ -535,13 +537,15 @@ main {
 }
 
 .detail__popularity--title {
-  padding: 10px 55px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__popularity--value {
   padding: 10px 0;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__description--name {
@@ -552,30 +556,33 @@ main {
 }
 
 .detail__name--title {
-  padding: 10px 26px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__name--value {
   font-size: 13px;
-  padding: 10px 0;
+  padding: 10px 5px 10px 0;
+  flex-basis: 50%;
 }
 
 .detail__description--genre {
-  display: flex;
-  justify-content: flex-start;
   margin-bottom: 20px;
   color: rgba(55, 44, 72, 0.702);
+  display: flex;
 }
 
 .detail__genre--title {
-  padding: 10px 97px 10px 13px;
+  padding: 10px 0 10px 13px;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__genre--value {
   padding: 10px 0;
   font-size: 13px;
+  flex-basis: 50%;
 }
 
 .detail__description--about {
@@ -619,22 +626,16 @@ main {
   padding: 10px 3px;
   border-radius: 5px;
   flex-basis: 45%;
-  text-align: right;
+  text-align: center;
   position: relative;
   background-color: transparent;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .detail__button:before {
   position: absolute;
   left: 0;
-}
-
-.detail__buttons--favorite:before {
-  content: url("/images/detailsVideo.png");
-}
-
-.detail__buttons--queue:before {
-  content: url("/images/detailsCalendar.png");
 }
 
 .detail__button--active {
@@ -1141,6 +1142,10 @@ body {
     display: none;
   }
 
+  .detail__img {
+    flex-basis: 50%;
+  }
+
   .detail__img--item {
     display: block;
     width: 100%;
@@ -1148,18 +1153,10 @@ body {
   }
 
   .detail__description {
-    width: 340px;
-  }
-
-  .detail__description--votes,
-  .detail__description--popularity,
-  .detail__description--name,
-  .detail__description--genre {
-    width: 340px;
+    flex-basis: 43%;
   }
 
   .detail__description--title {
-    padding-top: 5px;
     padding-bottom: 10px;
     font-weight: 700;
   }
@@ -1257,23 +1254,6 @@ body {
 
   .detail--nonVisible {
     display: none;
-  }
-
-  .detail__img {
-    width: 428px;
-    height: 630px;
-  }
-
-  .detail__description {
-    width: 452px;
-    margin-right: 36px;
-  }
-
-  .detail__description--votes,
-  .detail__description--popularity,
-  .detail__description--name,
-  .detail__description--genre {
-    width: 452px;
   }
 
   .detail__description--genre {

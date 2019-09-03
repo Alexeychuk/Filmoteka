@@ -19,7 +19,7 @@ const refs = {
 
 let selectFilm;
 
-const activeHomePage = () => {
+function activeHomePage() {
   refs.movieWrap.classList.remove('display-section');
   refs.detailsPageNone.classList.add('display-section');
   refs.filmLibraryPageNone.classList.add('display-section');
@@ -35,9 +35,9 @@ const activeHomePage = () => {
 
   refs.addToQueue.removeEventListener('click', toggleToQueue);
   refs.addToWatched.removeEventListener('click', toggleToWatched);
-};
+}
 
-const activeLibraryPage = () => {
+function activeLibraryPage() {
   refs.detailsPageNone.classList.add('display-section');
   refs.movieWrap.classList.add('display-section');
   refs.filmLibraryPageNone.classList.remove('display-section');
@@ -51,10 +51,14 @@ const activeLibraryPage = () => {
 
   refs.addToQueue.removeEventListener('click', toggleToQueue);
   refs.addToWatched.removeEventListener('click', toggleToWatched);
-};
+}
 
 function activeDetailsPage(e) {
+
+  if (!e.target.closest('li')) return;
+
   const movieId = e.target.closest('li').id;
+  
 
   const itsLibraryFilm = e.currentTarget.dataset.page !== 'home';
 
@@ -71,21 +75,19 @@ function activeDetailsPage(e) {
         obj => obj.id === Number(movieId),
       );
 
-    //console.log(selectFilm);
+
   } else {
+    console.log(renderFilms)
     selectFilm = renderFilms.find(film => film.id === Number(movieId));
   }
-  monitorButtonStatusText()
+  monitorButtonStatusText();
   showDetails(selectFilm);
 
   refs.addToQueue.addEventListener('click', toggleToQueue);
-refs.addToWatched.addEventListener('click', toggleToWatched);
+  refs.addToWatched.addEventListener('click', toggleToWatched);
 }
 
 
-
-//document.querySelector('main').addEventListener('click', activeDetailsPage);
-// activeDetailsPage()
 activeHomePage();
 
 refs.home_library[0].addEventListener('click', activeHomePage);

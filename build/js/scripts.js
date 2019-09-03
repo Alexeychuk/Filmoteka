@@ -71,6 +71,14 @@ fetchPopularMoviesList();
 fetchGenres();
 "use strict";
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var inputValue = document.querySelector('.search-form__input').value;
 var searchForm = document.querySelector('.search-form');
 var input = document.querySelector('.search-form__input');
@@ -98,6 +106,7 @@ function fetchFilms() {
         warning.remove();
       }, 2000);
     } else {
+      renderFilms = _toConsumableArray(data.results);
       list.innerHTML = '';
       data.results.map(function (el) {
         var moviePath = "https://image.tmdb.org/t/p/w400/".concat(el.backdrop_path);
@@ -182,7 +191,7 @@ window.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', fillScrollBar);
     document.documentElement.classList.remove('preloaderHeight');
     document.querySelector('.preloader').remove();
-  }, 0);
+  }, 1000);
 });
 
 window.onload = function () {
@@ -210,7 +219,7 @@ var refs = {
 };
 var selectFilm;
 
-var activeHomePage = function activeHomePage() {
+function activeHomePage() {
   refs.movieWrap.classList.remove('display-section');
   refs.detailsPageNone.classList.add('display-section');
   refs.filmLibraryPageNone.classList.add('display-section');
@@ -223,9 +232,9 @@ var activeHomePage = function activeHomePage() {
   fetchPopularMoviesList();
   refs.addToQueue.removeEventListener('click', toggleToQueue);
   refs.addToWatched.removeEventListener('click', toggleToWatched);
-};
+}
 
-var activeLibraryPage = function activeLibraryPage() {
+function activeLibraryPage() {
   refs.detailsPageNone.classList.add('display-section');
   refs.movieWrap.classList.add('display-section');
   refs.filmLibraryPageNone.classList.remove('display-section');
@@ -236,9 +245,10 @@ var activeLibraryPage = function activeLibraryPage() {
   refs.favoriteBtn.addEventListener('click', drawWatchedFilmList);
   refs.addToQueue.removeEventListener('click', toggleToQueue);
   refs.addToWatched.removeEventListener('click', toggleToWatched);
-};
+}
 
 function activeDetailsPage(e) {
+  if (!e.target.closest('li')) return;
   var movieId = e.target.closest('li').id;
   var itsLibraryFilm = e.currentTarget.dataset.page !== 'home';
   refs.movieWrap.classList.add('display-section');
@@ -250,8 +260,9 @@ function activeDetailsPage(e) {
       return obj.id === Number(movieId);
     }) || JSON.parse(localStorage.getItem('filmsWatched')).find(function (obj) {
       return obj.id === Number(movieId);
-    }); //console.log(selectFilm);
+    });
   } else {
+    console.log(renderFilms);
     selectFilm = renderFilms.find(function (film) {
       return film.id === Number(movieId);
     });
@@ -261,9 +272,7 @@ function activeDetailsPage(e) {
   showDetails(selectFilm);
   refs.addToQueue.addEventListener('click', toggleToQueue);
   refs.addToWatched.addEventListener('click', toggleToWatched);
-} //document.querySelector('main').addEventListener('click', activeDetailsPage);
-// activeDetailsPage()
-
+}
 
 activeHomePage();
 refs.home_library[0].addEventListener('click', activeHomePage);
@@ -294,27 +303,28 @@ var filmsQueueStorage = localStorage.getItem('filmsQueue');
 var filmsWatchedStorage = localStorage.getItem('filmsWatched');
 
 function monitorButtonStatusText() {
-  addToQueueBtn.textContent = 'add to queue';
-  addToQueueBtn.classList.remove('detail__button--active');
-  addToWatchedBtn.textContent = 'add to library';
-  addToWatchedBtn.classList.remove('detail__button--active');
-
   if (localStorage.getItem('filmsQueue')) {
-    if (JSON.parse(filmsQueueStorage).find(function (obj) {
+    var resQueue = JSON.parse(localStorage.getItem('filmsQueue')).find(function (obj) {
       return obj.id === Number(selectFilm.id);
-    })) {
+    });
+
+    if (resQueue) {
       addToQueueBtn.classList.add('detail__button--active');
-      addToQueueBtn.textContent = 'delete from queue'; //console.log('film in queue');
+      addToQueueBtn.textContent = 'delete from queue';
     } else {
       addToQueueBtn.classList.remove('detail__button--active');
       addToQueueBtn.textContent = 'add to queue';
     }
+  }
 
-    if (JSON.parse(filmsWatchedStorage).find(function (obj) {
+  if (localStorage.getItem('filmsWatched')) {
+    var resWatched = JSON.parse(localStorage.getItem('filmsWatched')).find(function (obj) {
       return obj.id === Number(selectFilm.id);
-    })) {
+    });
+
+    if (resWatched) {
       addToWatchedBtn.classList.add('detail__button--active');
-      addToWatchedBtn.textContent = 'delete from favorite'; //console.log('film in library');
+      addToWatchedBtn.textContent = 'delete from favorite';
     } else {
       addToWatchedBtn.classList.remove('detail__button--active');
       addToWatchedBtn.textContent = 'add to library';
@@ -439,11 +449,7 @@ var drawQueueFilmList = function drawQueueFilmList() {
     findUl.append(fragment);
   } else {
     var createSpan = document.createElement('span');
-    createSpan.textContent = 'You do not have to queue movies to watch. Add them.'; // refs.formWrap.classList.add('display-section');
-    //refs.thumbs.classList.add('display-section');
-    // refs.movieWrap.classList.remove('display-section')
-    // list.innerHTML = '';
-
+    createSpan.textContent = 'You do not have to queue movies to watch. Add them.';
     list.append(createSpan);
   }
 
@@ -462,22 +468,16 @@ var drawWatchedFilmList = function drawWatchedFilmList() {
     JSON.parse(keyFilm).forEach(function (el) {
       var li = createLibraryCardFunc("https://image.tmdb.org/t/p/w400/".concat(el.backdrop_path), el.title, el.id, el.vote_average);
       fragment.appendChild(li);
-    }); //document.querySelector('.movies-wrap').classList.remove('display-section');
-
+    });
     findUl.append(fragment);
   } else {
     var createSpan = document.createElement('span');
-    createSpan.textContent = 'You do not have to queue movies to watch. Add them.'; // refs.formWrap.classList.add('display-section');
-    // refs.thumbs.classList.add('display-section');
-    // refs.movieWrap.classList.remove('display-section')
-    // list.innerHTML = '';
-
+    createSpan.textContent = 'You do not have to queue movies to watch. Add them.';
     list.append(createSpan);
   }
 
   refs.queueBtn.classList.remove('header-search__item--active');
-  refs.favoriteBtn.classList.add('header-search__item--active'); // refs.queueBtn.addEventListener('click', drawQueueFilmList);
-
+  refs.favoriteBtn.classList.add('header-search__item--active');
   refs.favoriteBtn.removeEventListener('click', drawWatchedFilmList);
   refs.queueBtn.addEventListener('click', drawQueueFilmList);
 };
